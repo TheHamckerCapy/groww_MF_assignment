@@ -1,3 +1,5 @@
+
+
 # MyMutualFund
 
 > A mutual fund application which showcases different type of funds on the explore screen with their respective
@@ -6,6 +8,10 @@
 > add to in modalbottomsheet format.Their is a search screen which list 100 different funds using lazycolumn and
 > search bar with debounce logic for efficiect searching and last is the watchlist section where we can open our all the created watchlist
 > with their respective funds.
+>
+> The project is based on MVVM architecture with clear directory understanding for development and efficiency
+> It follows single source of truth and diversity inversion principles with the help of dependency injection using dagger hilt , room DB for offline local storage , repository pattern and modern android libraries like
+> moshi , jetpack compose , retrofit , coil.
 
 ## Features
 
@@ -14,6 +20,10 @@
 - **Search:** List's 100 different funds and the ability to search specific fund and get detailed information
 - about each fund.
 - **Watchlist:** lets us view our watchlist which we created or a empty state if there are no watchlist there.
+
+
+
+https://github.com/user-attachments/assets/551d22ae-4a73-4050-ab7f-e602d002bc25
 
 ## Prerequisites
 
@@ -25,6 +35,10 @@ Before you begin, ensure you have met the following requirements:
 ## Installation
 
 Follow these steps to get your development environment running:
+
+
+
+
 
 1. Clone the repository:
    ```bash

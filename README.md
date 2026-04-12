@@ -11,7 +11,7 @@
 >
 > The project is based on MVVM architecture with clear directory understanding for development and efficiency
 > It follows single source of truth and diversity inversion principles with the help of dependency injection using dagger hilt , room DB for offline local storage , repository pattern and modern android libraries like
-> moshi , jetpack compose , retrofit , coil.
+> moshi , jetpack compose , retrofit , coil and incorporation of Resource class to handle loading , success , error states helping in smooth data handling and state management.
 
 ## Features
 

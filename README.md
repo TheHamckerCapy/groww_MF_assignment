@@ -21,6 +21,14 @@
 - about each fund.
 - **Watchlist:** lets us view our watchlist which we created or a empty state if there are no watchlist there.
 
+## Images
+
+<img width="300" alt="Screenshot3" src="https://github.com/user-attachments/assets/c7d8d2bc-1d4a-48de-85b3-7901ada4e2ad"/>
+<img width="300" alt="Screenshot2" src="https://github.com/user-attachments/assets/b679d0c3-d75a-4ed1-b5b6-34525d4dc866"/>
+<img width="300" alt="Screenshot4" src="https://github.com/user-attachments/assets/e502b0eb-750f-4498-b5b8-df3677efef69"/>
+<img width="300" alt="Screenshot1" src="https://github.com/user-attachments/assets/0bebdaec-7225-4986-925f-fa3e21103200"/>
+<img width="300" alt="Screenshot1" src="https://github.com/user-attachments/assets/ccda8624-e287-487f-bb22-237057e43023" />
+<img width="300" alt="Screenshot1" src="https://github.com/user-attachments/assets/bd08ccdd-df93-47ae-8a82-f1c2dc2b5e8d" />
 
 
 https://github.com/user-attachments/assets/551d22ae-4a73-4050-ab7f-e602d002bc25

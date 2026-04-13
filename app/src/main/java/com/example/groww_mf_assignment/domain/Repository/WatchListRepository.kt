@@ -37,4 +37,8 @@ class WatchlistRepository @Inject constructor(
     suspend fun removeFundFromFolder(folderId: Int, schemeCode: Int) {
         dao.deleteFolderFundCrossRef(FolderFundCrossRef(folderId, schemeCode))
     }
+
+    suspend fun deleteFolder(folderId: Int) {
+        dao.deleteWatchlistFolder(folderId)
+    }
 }

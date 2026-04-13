@@ -41,4 +41,10 @@ class WatchlistViewModel @Inject constructor(
             repository.removeFundFromFolder(folderId, schemeCode)
         }
     }
+
+    fun deleteFolder(folderId: Int) {
+        viewModelScope.launch {
+            repository.deleteFolder(folderId)
+        }
+    }
 }

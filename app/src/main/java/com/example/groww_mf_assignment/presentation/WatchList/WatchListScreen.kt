@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.FolderOff
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -45,7 +46,13 @@ fun WatchlistScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(watchlists) { folderWithFunds ->
-                        FolderItem(folderWithFunds, onNavigateToDetails)
+                        FolderItem(
+                            folderWithFunds = folderWithFunds,
+                            onNavigateToDetails = onNavigateToDetails,
+                            onDeleteFolder = { folderId ->
+                                viewModel.deleteFolder(folderId)
+                            }
+                        )
                     }
                 }
             }
@@ -82,7 +89,7 @@ fun WatchlistEmptyState() {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Track your favorite mutual funds. Go to the Explore screen, find a fund you like, and tap the bookmark icon to create your first watchlist folder like 'Retirement' or 'Tax Savers'.",
+            text = "Track your favorite mutual funds here.",
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -93,9 +100,35 @@ fun WatchlistEmptyState() {
 @Composable
 fun FolderItem(
     folderWithFunds: FolderWithFunds,
-    onNavigateToDetails: (Int) -> Unit
+    onNavigateToDetails: (Int) -> Unit,
+    onDeleteFolder: (Int) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    // Confirmation Dialog
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete Watchlist") },
+            text = { Text("Are you sure you want to delete '${folderWithFunds.folder.folderName}'? This action cannot be undone.") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDeleteFolder(folderWithFunds.folder.folderId)
+                        showDeleteDialog = false
+                    }
+                ) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -103,30 +136,45 @@ fun FolderItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column {
-
+            // Folder Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
-                    Text(text = folderWithFunds.folder.folderName, style = MaterialTheme.typography.titleMedium)
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = folderWithFunds.folder.folderName,
+                        style = MaterialTheme.typography.titleMedium
+                    )
                     Text(
                         text = "${folderWithFunds.funds.size} Funds",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                Icon(
-                    imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                    contentDescription = "Expand/Collapse"
-                )
+
+                // NEW: Delete Icon Button
+                IconButton(onClick = { showDeleteDialog = true }) {
+                    Icon(
+                        imageVector = Icons.Default.DeleteOutline,
+                        contentDescription = "Delete Folder",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+
+                // Expand/Collapse Icon
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Expand/Collapse"
+                    )
+                }
             }
 
-
+            // ... Existing Expanded Funds List code remains exactly the same ...
             if (expanded) {
                 if (folderWithFunds.funds.isEmpty()) {
                     Text(

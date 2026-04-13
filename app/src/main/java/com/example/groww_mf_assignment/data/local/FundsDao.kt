@@ -38,6 +38,21 @@ interface MfDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM folder_fund_cross_ref WHERE schemeCode = :schemeCode)")
     fun isFundSaved(schemeCode: Int): Flow<Boolean>
+
+
     @Query("DELETE FROM explore_cache WHERE category = :category")
     suspend fun deleteExploreCacheByCategory(category: String)
+
+    @Query("DELETE FROM folder_fund_cross_ref WHERE folderId = :folderId")
+    suspend fun clearFolderAssociations(folderId: Int)
+
+    @Query("DELETE FROM watchlist_folders WHERE folderId = :folderId")
+    suspend fun deleteFolderEntity(folderId: Int)
+
+    // A transaction ensures both tables are updated safely at the same time
+    @Transaction
+    suspend fun deleteWatchlistFolder(folderId: Int) {
+        clearFolderAssociations(folderId)
+        deleteFolderEntity(folderId)
+    }
 }
